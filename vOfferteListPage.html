@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    
+    <!-- bootstrap and JQ_UI decorative library -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+   
+   
+    <!-- css in external file -->
+    <?!= include ('vPage-css'); ?>
+    
+    <!-- multipage management: setting url for e.parameter obj -->
+    <?var url = getScriptUrl();?>
+  </head>
+  
+  <body>
+    <!-- header  -->
+    <?!= include ('vHeader'); ?>  
+
+    <h1 class="style1"> OFFERTE LIST PAGE  </h1> 
+    <div></div>
+    
+    <!-- page control-->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm">
+          <a class="btn btn-primary style2" id='btnBack' href='<?=url?>?page=index' target="_top" role="button">Torna Alla pagina principale</a>
+        </div>
+        <div class="col-sm">  
+        </div>
+        <div class="col-sm">
+        </div>
+      </div>
+    </div><!-- end container-->
+    
+    <hr>
+    
+    <!-- table for datatable -->
+    <div class="container">
+      <table id=targetTable class="display" width="100%"></table>
+    </div><!-- end container--> 
+    
+    <!-- test area -->
+    <div id='output'> 
+      area di output per informazioni ausiliarie<br />   
+    </div>
+    
+    <!-- jsSection-->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>    
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+
+  <!-- footer-->
+  <?!= include ('vFooter'); ?>
+
+  <!-- App Front End JS Library-->
+  <?!= include ('feLibrary');?> 
+  <?!= include ('feAppLogic');?> 
+
+
+<script>
+//init & testing
+console.log('in Lista Offerte  Page');
+//var url=localStorage.getItem("url");
+
+//start when page is loaded
+$(document).ready(function(){
+   //lancia la qry per ottenere i dati da JDBC attraverso il modulo beAppLogic (settato sul database SB_MMazza)
+   //che lancia la query utilizzando  la classe CRUD
+   let dbase='SB_MMazza';
+   let qry='SELECT * FROM COM_Offerte;';
+   console.log('query di lettura: '+qry)
+   //call server side beAppLogic function; function calls CRUD Method on  beDbaseCrud.gs
+   google.script.run.withSuccessHandler(onSuccess)
+        .gsArrayReadTable(dbase, qry); 
+            
+        //callback function
+        function onSuccess(dataSet) {      
+            //test & init          
+            console.log('questo è il valore ritornato dal BE:  '+dataSet); 
+            
+            //using datables basic instructions and methods, in order to showing data
+            console.log('avvio DataTable e riempio la tabella');            
+          
+            var table =$('#targetTable').DataTable( {
+                data: dataSet,
+                "order": [[ 1, "desc" ]], //ordina per codice offerta
+                columns: [
+                    { title: "id" },
+                    { title: "cod" },
+                    { title: "oggetto" },
+                    { title: "note" },
+                    { title: "importo" },
+                    { title: "fkGame" },
+                    { title: "fkCliente" },
+                    { title: "apertura" },
+                    { title: "esito" },
+                    { title: "stato" },
+                    { title: "tipologia" },
+                    { title: "categoria" },
+                    { title: "fkOperatore" },
+                    { title: "path" },
+                    { title: "scadenza" },
+                    { title: "archiviazione" }
+
+                ],
+                
+            } );
+
+            //datatable selecting record by click on this.row
+            $('#targetTable tbody').on( 'click', 'tr', function () {
+              alert ('record selected');
+              console.log(dataSet[0]);              
+              var idOfferta = table.row( this ).data();//non bene documentato....
+              console.log ('id assegnato='+idPa[0]);//da capire bene.
+              //da qui seleziono il record e attivo la updatePage..
+              sessionStorage.setItem('idOfferta', idOfferta[0]); 
+              url=localStorage.getItem("url");
+              window.open(url+"?page=vOffertaUpdatePage","_top"); 
+            
+            } );
+
+
+        } 
+});
+
+
+
+
+/*developer notes:
+
+toDo
+#inserire librerie x datatable***
+#crea funzione beAppLogic per script JDBC per popolare la tabella ****
+#crea chiamata ajx per script php per popolare la tabella!!!----
+
+Done
+
+
+
+*/
+</script>
+</body>
+</html>
+
+

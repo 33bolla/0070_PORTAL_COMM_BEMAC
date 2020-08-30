@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    
+    <!-- bootstrap and JQ_UI decorative library -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <!-- css in external file -->
+    <?!= include ('vPage-css'); ?>
+    
+    <!-- multipage management: setting url for e.parameter obj -->
+    <?var url = getScriptUrl();?>
+  </head>
+  
+<body>
+   
+  <!-- header  -->
+  <?!= include ('vHeader'); ?>
+   
+  <!-- main menu -->
+  
+  <div class="row">
+    <div class="col-md-4 centerColumn "> 
+      <p class='style1'>Folder</p>
+      <button class="btn btn-primary " type="button" id="btnFolderOfferte">
+        Folder Offerte
+      </button> <br>
+      <button class="btn-primary" type="button" id="btnFolderAzioniCommerciali">
+       Folder Azioni Commerciali
+      </button><br>
+      <button class="btn-primary" type="button" id="btnFolderOpportunitaCommerciali">
+        Folder Opportunita Commerciali
+      </button><br>
+      <button class="btn-primary" type="button" id="btnFolderCustomerCare">
+        Folder Customer Care
+      </button><br>  
+    </div><!--md4-->
+
+    <div class="col-md-4 centerColumn">
+      <p class='style1'> Gestione Servizio Commerciale </p>
+      <button class="btn btn-secondary" type="button" id="btnFolderServizioCommerciale" >
+        Folder  Servizio Commerciale
+      </button> <br>
+      <button class="btn btn-secondary" type="button" id="btnSheetGestioneServizioCommerciale" >
+        Sheet  Gestione Servizio Comm 
+      </button> <br>      
+    </div><!--md4-->
+    
+    <div class="col-md-4 centerColumn">
+      <p class='style1'> Archivi Comm</p>
+      <button class="btn btn-success" type="button" id="btnFolderArchivioOfferte2017">
+        Offerte fino al 31.12.2017
+      </button> <br>
+      <button class="btn-success" type="button" id="btnFolderArchivioOfferte2019">
+       Offerte 2018-2019
+      </button> <br>
+    </div><!--md4-->
+  </div> <!-- ROW-->
+  
+  <hr>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <p class='style1'> Assistente COMM</p>
+    </div>
+  </div> <!-- ROW-->
+
+  <div class="row">
+    <div class="col-md-4 centerColumn">
+        <button class="btn btn-secondary" type="button" id="btnListaOfferte">
+          Lista Offerte
+        </button> <br>
+        <button class="btn btn-secondary" type="button" id="btnCreaOfferta">
+          Crea nuova Offerta
+        </button><br>
+    </div>    
+    <div class="col-md-4 centerColumn">
+        <button class="btn btn-secondary" type="button" id="btnListaAzioniCommerciali">
+          Lista Azioni Commerciali
+        </button> 
+        <button class="btn btn-secondary" type="button" id="btnCreaAzioneCommerciale">
+          Crea nuova azione Commerciale
+        </button><br>
+    </div>
+    <div class="col-md-4 centerColumn">
+        <button class="btn btn-secondary" type="button" id="btnListaOpportunitaCommerciali">
+          Lista  Opportunita Commerciale
+     </button><br> 
+     <button class="btn btn-secondary" type="button" id="btnCreaOpportunitaCommerciale">
+          Crea nuova Opportunita Commerciale
+    </button><br>
+    </div>
+  
+  </div> <!-- ROW-->
+
+
+  <!-- DOM output area-->
+  <hr>
+  <div id='output'> 
+    area di output<br />   
+  </div>
+   
+   
+   
+   <!-- footer-->
+   <?!= include ('vFooter'); ?>
+  
+  <!-- App Front End & JS FeLibrary-->
+  <?!= include ('feLibrary');?> 
+  <?!= include ('feAppLogic');?> 
+  <?!= include ('feModalManager');?> 
+
+
+
+
+     <!-- jsSection-->
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    
+<script>
+console.log ('inizio script');
+/*common App Data*/
+//setting url for paging  
+var url="<?=url?>";
+localStorage.setItem("url", url);
+localStorage.getItem("url");
+console.log ('da index page '+url);
+
+/*Folder, portal and documents url -hard coded*/
+//Folder url Processi
+var urlFolderOfferte='https://drive.google.com/drive/u/1/folders/1NU6jnL5cqnhNMgvroKRqDQNozxLVOJfu';
+var urlFolderAzioniCommerciali='https://drive.google.com/drive/folders/1gChCTAO_Y1wDEQa3G1HQ_XcMby4jeXCI?usp=sharing';
+var urlFolderOpportunitaCommerciali='https://drive.google.com/drive/folders/1QOKxTRguTqeg_QGGYt1NQaHjEBETlgSk?usp=sharing';
+var urlFolderCustomerCare='https://drive.google.com/drive/u/1/folders/1RgXvQ2EB66u-SbfPJHRcjDJRQKrPcNdi';
+
+//Folder url servizi
+var urlFolderServizioCommerciale='https://drive.google.com/drive/u/1/folders/1etRa1AY7aeaqFVJrYdp_LKPSLUSTzpb3';
+var urlSheetGestioneServizioCommerciale='https://docs.google.com/spreadsheets/d/1MfR2LHFX0biGH_WwpeUVP90q5VAVqt28u3YJBQN9AVM/edit#gid=2024032981';
+  
+//Folder url archivi
+var UrlFolderArchivioOfferte2017='';
+var UrlFolderArchivioOfferte2019='';
+
+
+//setting global folder and file variables
+  var folderId ='1nrXQg7v1vDpcBfoa0DKBJhwXezjDi2IZ'; //hard coded
+  var fileId ='1Rqr1Rz5bsz7pXblC-aX7myGcfCq2EMxOE_s--VTYnHE'; //hard coded     
+  var newFolderName='101_TESTNEW';
+       
+/*event listener launching folder, services, automation*/   
+//launching folder Processi
+$( "#btnFolderOfferte" ).click(function() {
+  let url=urlFolderOfferte;
+  window.open(url); 
+});
+$( "#btnFolderAzioniCommerciali" ).click(function() {
+  let url=urlFolderAzioniCommerciali;
+  window.open(url); 
+});
+$( "#btnFolderOpportunitaCommerciali" ).click(function() {
+  let url=urlFolderOpportunitaCommerciali;
+  window.open(url); 
+});
+$( "#btnFolderCustomerCare" ).click(function() {
+  let url=urlFolderCustomerCare;
+  window.open(url); 
+});
+   
+
+//launching folder file Servizi
+$( "#btnFolderServizioCommerciale" ).click(function() {
+  let url=urlFolderServizioCommerciale;
+  window.open(url); 
+});
+$( "#btnSheetGestioneServizioCommerciale" ).click(function() {
+  let url=urlSheetGestioneServizioCommerciale;
+  window.open(url); 
+});
+
+
+
+//launching folder Archivi Offerte
+$( "#btnFolderArchivioOfferte2017" ).click(function() {
+  alert('da attivare');
+  let url=UrlFolderArchivioOfferte2017;
+  window.open(url); 
+});
+$( "#btnFolderArchivioOfferte2019" ).click(function() {
+  alert('da attivare');
+  let url=UrlFolderArchivioOfferte2019;
+  window.open(url); 
+});
+
+//launching Automation
+$( "#btnListaOfferte" ).click(function() {
+  url=localStorage.getItem("url");
+  window.open(url+"?page=vOfferteListPage","_top");  
+});
+   
+   
+   function newFolderTemplate(newFolderName, folderId, fileId){
+     console.log(fileId);
+     function onSuccess(result) {
+       document.getElementById("output").innerHTML = "operazione eseguita con successo :  "+result; 
+    }
+    //call server side function
+    google.script.run.withSuccessHandler(onSuccess)
+        .newFolderTemplate(newFolderName, folderId, fileId);  
+   }
+   
+   
+   function loadFile(fileId, folderId){
+     function onSuccess(result) {
+       document.getElementById("output").innerHTML = "operazione eseguita con successo aggiunto file   :  "+result; 
+    }
+    //call server side function
+    google.script.run.withSuccessHandler(onSuccess)
+        .loadFile(fileId, folderId);  
+   }
+     
+   function newFolder(newFolderName, folderId){
+     function onSuccess(result) {
+       document.getElementById("output").innerHTML = "operazione eseguita con successo :  "+result; 
+    }
+    //call server side function
+    google.script.run.withSuccessHandler(onSuccess)
+        .newFolder(newFolderName, folderId);  
+   }
+   
+   function getChildrenFolderNames(folderId, fileId){     
+     function onSuccess(result) {
+       document.getElementById("output").innerHTML = "subFolders Name:  "+result; //result is an array 
+    }
+    //call server side function
+    google.script.run.withSuccessHandler(onSuccess)
+        .getChildrenFolderName(folderId);  
+   }
+   
+   function readFolderName(folderId, fileId){
+     var folderId='1nrXQg7v1vDpcBfoa0DKBJhwXezjDi2IZ'; //hard coded
+     var fileId='1Rqr1Rz5bsz7pXblC-aX7myGcfCq2EMxOE_s--VTYnHE'; //hard coded    
+     
+     function onSuccess(result) {
+       document.getElementById("output").innerHTML = "Folder Name:"+result;
+    
+    }
+    //call server side function
+    google.script.run.withSuccessHandler(onSuccess)
+        .getFolderName(folderId);  
+   }
+
+   </script>
+    
+    
+   
+  </body>
+</html>
+
+<!-- developer notes
+  change jumbotron back ground color
+-->
+
+
+
+
+
+
+

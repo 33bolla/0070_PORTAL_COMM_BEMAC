@@ -1,0 +1,81 @@
+<script>
+//***** MODAL ************
+class Modal {
+//testing modal with OOP
+ 
+  //istanzio la classe modal inviando un vettore con:
+      /*il nome (id) della modal, 
+      -il nome del tag titolo (elemento del DOM)
+      -il titolo (title) che voglio compaia nella modal
+      -il nome del tag body (elemento del DOM)
+      -il messaggio da visualizzare        
+  in sintesi:
+  //var arrModal=["idModalShow", "idModalLAbel", "titolo della modal", "idModalBody","messaggio del Body" 
+  "idButton1" "nomeButton1", "idButton2", "nomeButton2" ]; 
+   */
+  
+  constructor(arrayModal) {
+    this.modalName =arrayModal[0];
+    this.modalTitleLabel=arrayModal[1];
+    this.modalTitle =arrayModal[2];
+    this.modalBodyLabel=arrayModal[3];
+    this.modalBody=arrayModal[4];
+    this.modalBtn01Label=arrayModal[5];
+    this.modalBtn01=arrayModal[6];
+    this.modalBtn02Label=arrayModal[7];
+    this.modalBtn02=arrayModal[8];
+  }
+
+  //methods
+  getName() {
+    return "Modal id value (name):  " + this.modalName; // mandatory
+  }  
+  getTitleLabel(){
+    return "Modal Title id value (idTitle):  " + this.modalTitleLabel; // just for testing purpose
+  }
+  getBodyLabel(){
+    return "Modal Body id value (idBody):  " + this.modalBodyLabel; // just for testing purpose
+  }
+  getTitle() {
+    return "Modal Title: " + this.modalTitle;
+  }
+  getBody(){
+    return "Modal Body:" + this.modalBody;  
+  }
+
+  setTitle(){
+    //setta il titolo della modal--- advanced
+   }
+  setBody(){
+    //setta il messaggio da visualizzare  --- advanced
+  }
+  
+  show(){
+    //il metodo visualizza la modal con le proprietà (attributi passati)
+    // ****attenzione alla sintassi di Jquery per il valore da attribuire  agli elementi del dom*****
+    console.log('test modal name  '+'"# '+this.modalName+'"');//test
+    $("#"+this.modalName+"").modal();//visualizza modal
+    
+    //titolo della modal
+    var modalTitle= $("#"+this.modalTitleLabel+""); //defining title element (id)
+    modalTitle.html(this.modalTitle); 
+    
+    //corpo della modal
+    var modalBody = $("#"+this.modalBodyLabel+""); //defining body element (id)
+    modalBody.html(this.modalBody); //hard coded string version
+    
+    
+    //footer della modal
+    var modalBtn01 = $("#"+this.modalBtn01Label+""); //defining footer element1 (id)
+    modalBtn01.text(this.modalBtn01); 
+    var modalBtn02 = $("#"+this.modalBtn02Label+""); //defining footer element2 (id)
+    modalBtn02.text(this.modalBtn02);
+   
+  }
+  
+  hideModal(){
+  }
+
+}//end class wrapper
+
+</script>
