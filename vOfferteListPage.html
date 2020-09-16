@@ -76,7 +76,7 @@ $(document).ready(function(){
    let dbase='SB_MMazza';
    let qry='SELECT * FROM COM_Offerte;';
    console.log('query di lettura: '+qry)
-   //call server side beAppLogic function; function calls CRUD Method on  beDbaseCrud.gs
+    //call server side beAppLogic function; function calls CRUD Method on  beDbaseCrud.gs
    google.script.run.withSuccessHandler(onSuccess)
         .gsArrayReadTable(dbase, qry); 
             
@@ -90,7 +90,7 @@ $(document).ready(function(){
           
             var table =$('#targetTable').DataTable( {
                 data: dataSet,
-                "order": [[ 1, "desc" ]], //ordina per codice offerta
+                "order": [[ 0, "desc" ]], //ordina per codice offerta
                 columns: [
                     { title: "id" },
                     { title: "cod" },
@@ -113,7 +113,7 @@ $(document).ready(function(){
                 
             } );
 
-            //datatable selecting record by click on this.row
+              //datatable selecting record by click on this.row
             $('#targetTable tbody').on( 'click', 'tr', function () {
               alert ('record selected');
               console.log(dataSet[0]);              

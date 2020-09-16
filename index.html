@@ -200,8 +200,13 @@ $( "#btnListaOfferte" ).click(function() {
   url=localStorage.getItem("url");
   window.open(url+"?page=vOfferteListPage","_top");  
 });
+$( "#btnCreaOfferta" ).click(function() {
+  url=localStorage.getItem("url");
+  window.open(url+"?page=vOffertaCreatePage","_top");  
+});   
    
-   
+
+  /* da aggiornare o eliminare*/
    function newFolderTemplate(newFolderName, folderId, fileId){
      console.log(fileId);
      function onSuccess(result) {

@@ -1,3 +1,113 @@
 <script>
+    /**
+     * Libreria di funzioni Front End specifiche   per 0071_AMM_OPERATION_BEMAC
+     *                  --------by maoSoft()---------
+     *
+     *  ---------------------------------------------------------------- -------------------
+     *   R01.001| 20200911| revisione per  adattamento  applicazione 0071_AMM_BEMAC 
+     *   R01.002| 20200912| revisione per  fattorizzazione e documentazione
+     *  
+     *  ------------------------------------------------------------------------------------ 
+     *  functions list (
+     * 
+     *#objCreate(values)
+     *getObjLastFolderCod()
+     *#createAppFolder //lancia la coniugata BE 
+     * che crea un folder nella url indicata e carica template files. 
+     *#showDataModal()//mostra dati da BE nella modal (--in progress--)
+    */
     
-</script>
+      //init library for testing and using in App
+    console.log('in feAppLogic  Front End Controller');
+    var url = localStorage.getItem("url"); // mandatory to open new window on google managed cloud!
+    
+    function objCreate(values){ 
+      /**
+       * crea il record nel database e il folder (con i files template) su gDrive
+       * launch a beFunctions (in beAppLogic) that creates a new obj record on table 'obj' and, after,
+       * creates a new folder with templates files inside
+       * @param {array} values db name (contains target table)
+       *
+       * i dati da passare al BE per la creazione del folder associato al nuovo oggetto (operation) 
+       * sono hard coded in questa funzione
+      */     
+      
+        //init & test
+      console.log('in objCreate() function');
+      
+        //setting folder  parameters 
+      let idObjFolder='1NU6jnL5cqnhNMgvroKRqDQNozxLVOJfu';//hard coded : cartella Offerte
+    
+        /*setting  templates parameters and put them in an array*/
+        //template gSheet posti nella cartella maurizioBemac BINF_/IT_Template
+      let idControlloProcesso='1TpM63aV5TgttMsRa0-uTPUNFDRafQ7oukQC22UQMc-o';//hard coded template controlloProcesso  
+      let idObjSheet='1BW85U5v9RaHglyoHzKn-864TRlVOAT7D7sEvAx6XKYc';//hard coded: template per offerte                                                                     
+      let idTemplates=[idControlloProcesso,idObjSheet];//gsheet (al momento solo un template viene copiato nel nuovo folder)
+    
+      //engine on beAppLogic
+        /** lancia la funzione gsObjCreate (beAppLogic) che avvia in successione 
+         * due distinte funzioni di libreria: #una per la creazione del record-> createRecord (beLibrary) 
+         * e #una per la creazione di un folder con caricamento di file (templates) -> createFolder (beLibrary)
+         * i file copia dei templates vengono modificati in fase di creazione
+         * #con la funzione di callback avviso l'utente sulla esecuzione
+         * 
+         * nel futuro creare una classe OBJ le cui istanze (OBJ) sono dotate di metodi per gDrive e per dBase
+         * gsObjCreate è la funzione lato be coniugata con questa funzione  */
+        
+          //call conjugate be function on beAppLogic
+          google.script.run.withSuccessHandler(onSuccess)
+            .gsObjCreate(values, idObjFolder, idTemplates); 
+            
+            //managing callback function
+        function onSuccess(risultato) {      
+            console.log('OUT OF  objCreate() function');
+            console.log('questo è il valore ritornato dal BE:  '+risultato); //test
+            alert ('tutto ok! /n ricordati di inviare eventuali bozze di mail generate! '); //user info
+        }  
+    }
+    
+    function openObjFolder(codiceObjFolder, objFolderId, subFolderType){
+        /**
+         * launch a beFunctions (in beAppLogic) getting  request folder and return its url
+         * looks for subfolder case
+         * next: open  a new window showing folder 
+         * 
+         * @param {string} codiceObjFolder per costruzione corrisponde ai primi 5 caratteri del nome del folder da aprire
+         * 
+         * @param {string} paFolderId Id del folder Obj  (parent folder)
+         * @param {string} subFolderType definisce la tipologia del subFolder da aprire (RO,OL,DDT ecc)
+         * @returns {string} log message
+        */
+        
+        //init & test
+        console.log('in folder Obj create -feAppLogic'); 
+        console.log('codice objFolder =  '+codiceObjFolder);
+        console.log('folder id  ='+objFolderId)
+            //check is subFolder
+        if ( !subFolderType ){
+            //subfolderType='0'; //chiedo alla bE di tornare il folder PA e non un subFolder
+            console.log(subFolderType);
+        }
+        
+        
+          //call server side app function (beAppLogic)
+        google.script.run.withSuccessHandler(onSuccess)
+                .getFolderUrl(codiceObjFolder, objFolderId, subFolderType); 
+                
+            //callback function: open folder
+            function onSuccess(folderUrl) {      
+               console.log('questo è il valore ritornato dal BE:  '+folderUrl); 
+               window.open(folderUrl, "_blank");
+            }  
+        console.log('out from folder Pa create -feAppLogic'); 
+    }         
+    
+    
+    
+    
+    
+    console.log('feAppLogic Library loaded');
+    </script>
+    
+    
+    

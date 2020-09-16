@@ -1,3 +1,45 @@
-<script>
+<script> 
+    /**
+     * Libreria di funzioni Front End standard  per Automazione
+     *                  --------by maoSoft()---------
+     *
+     *  ---------------------------------------------------------------- -------------------
+     *   R01.002| 20200910| revisione per  miglioramento  applicazione 0071_AMM_BEMAC   
+     *  ------------------------------------------------------------------------------------ 
+     *  function list (last in first out)
+     * 
+     *
+     *#setInputFieldsCurrentDate(inputFields)//inserisce nei campi form specificati la data odierna
+     *
+     *#createAppFolder //lancia la coniugata BE 
+        *che crea un folder nella url indicata e carica template files. 
+     *
+     */  
+      //init library for using in AppScript
+      //init&test
+    console.log('in jsApp Front End Library');
+    var url = localStorage.getItem("url"); // mandatory to open new window on google managed cloud!
     
+        /* library functions */
+    function setInputFieldsCurrentDate(inputFields){
+            //build todayString
+            let today = new Date();
+            let dd = String(today.getDate()).padStart(2, '0');
+            let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            let yyyy = today.getFullYear();
+    
+            let todayString = yyyy + '-' + mm + '-' + dd;
+            
+            //fill all form dateFields (you can change them in form)
+            for (let i=0; i<inputFields.length; i++){
+                inputFields[i].val(todayString);
+            }
+            console.log(todayString);
+            return todayString    
+    }
+    
+    console.log(' jsApp Front End Library Loaded');
 </script>
+    
+    
+    

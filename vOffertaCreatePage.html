@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+
+    <!-- bootstrap and JQ_UI decorative library -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+
+    <!-- css in external file -->
+    <?!= include ('vPage-css'); ?>
+
+    <!-- multipage management: setting url for e.parameter obj -->
+    <?var url = getScriptUrl();?>
+  </head>
+  <body>
+    <!-- header  -->
+    <?!= include ('vHeader'); ?>     
+    <h1 class="style1">  PAGINA NUOVA OFFERTA   </h1> 
+    <div></div>
+    
+    <!-- page control-->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 centerColumn">
+          <a class="btn btn-primary style1" id='btnBack' href='<?=url?>?page=index' target="_top" role="button">Torna Alla pagina principale</a>
+        </div>
+
+        <div class="col-md-6 centerColumn">
+          <button  class="btn btn-success style1" id="btnConferma">Conferma Dati Inseriti</button>
+        </div>
+      </div><!--end Row-->
+    </div><!-- end page control container-->
+    <hr>
+
+    <!-- form creazione record  area  
+      (stessa struttura di ACQ_PA. verifica se puô essere realizzata a partire da un template 
+      e da una classe FormInserimentoDati)
+    -->  
+    <div class="container">
+      <form>      
+        <div class="form-row testataInputForm">
+          <div class="form-group col-md-2">
+              <label for="cod">Codice Offerta</label>
+              <input type="text" class="form-control" id="cod" placeholder="codice Offerta">
+          </div>
+          <div class="form-group col-md-5">
+            <label for="nomeBreveCliente">Nome Breve Cliente</label>
+            <input type="text" class="form-control" id="nomeBreveCliente" placeholder="nome breve cliente">
+          </div>
+          <div class="form-group col-md-5">
+            <label for="riferimentoCliente">Riferimento Cliente</label>
+            <input type="text" class="form-control" id="riferimentoCliente" placeholder="breve riferimento impianto o destinazione">
+          </div>
+        </div><!--end form row-->
+
+        <div class="form-row testataInputForm">
+          <div class="form-group col-md-4">
+            <label for="oggetto">Oggetto</label>
+            <input type="text" class="form-control" id="oggetto" placeholder="Oggetto Offerta">
+          </div>      
+          <div class="form-group col-md-2">
+            <label for="importo">Importo</label>
+            <input type="text" class="form-control" id="importo" placeholder="importo imponibile" >
+          </div>
+          <div class="form-group col-md-6">
+            <label for="note">Note</label>
+            <textarea class="form-control" id="note" placeholder="note" rows="3"></textarea>
+          </div>
+        </div><!--end form row-->
+        
+        <div class="form-row parametriInputForm">
+          <div class="form-group col-md-3">
+              <label for="idGame">Cod Game</label>
+              <input type="text" class="form-control" id="idGame" placeholder="Codice Game">
+          </div>
+          <div class="form-group col-md-3">
+            <label for="idCliente">Cod Cliente</label>
+            <input type="text" class="form-control" id="idCliente" placeholder="Codice Cliente asociato al Game"> <!-- autoriempimento con la selezione del game!!-->
+          </div>
+          <div class="form-group col-md-2">
+            <label for="apertura">Apertura Offerta</label>
+            <input type="text" class="form-control" id="apertura" placeholder="data apertura">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="scadenza">Scadenza Offerta</label>
+            <input type="text" class="form-control" id="scadenza" placeholder="dd-mm-aaaa">
+          </div>
+          <div class="form-group col-md-2">
+            <label for="archiviazione">Apertura Offerta</label>
+            <input type="text" class="form-control" id="archiviazione" placeholder="data archiviazione">
+          </div>
+        </div><!--end form row-->
+
+        <div class="form-row parametriInputForm">
+          <div class="form-group col-md-4">
+            <label for="operatore">Operatore Bemac  </label>
+            <select class="form-control" id="idOperatore" name="operatore" placeholder="seleziona operatore">
+                <option value="2150">Filippo Mazzanti</option>
+                <option value="2151">Mara Mazzanti</option>
+                <option value="2140">Manuela Piseddu</option>
+                <option value="322">Marco Bevilacqua</option>
+                <option value="360">Maurizio Mazzanti</option>  
+                <option value="361">Stefano Mazzanti</option>
+            </select>  
+          </div>    
+        
+          <div class="form-group col-md-4">
+            <label for="richiedente">Richiedente </label>
+            <select class="form-control" id="idRichiedente" name="richiedente" placeholder="seleziona richiedente">
+                <option value="2150">Filippo Mazzanti</option>
+                <option value="2151">Mara Mazzanti</option>
+                <option value="2140">Manuela Piseddu</option>
+                <option value="322">Marco Bevilacqua</option>
+                <option value="360">Maurizio Mazzanti</option>  
+                <option value="361">Stefano Mazzanti</option>
+                <option value="581">Baluganti.P</option>
+                <option value="2153">Baroncelli.M</option>  
+                <option value="2152">Donati.A</option>
+                <option value="585">Fossi.J</option>
+                <option value="583">Innocenti.L</option>
+                <option value="2148">Mazzanti.L</option> 
+                <option value="337">Romanelli.A</option>
+                <option value="617">Tempesti.L</option>
+                <option value="343">Tempesti.M</option>
+                <option value="582">Uniri.B</option>              
+            </select>  
+          </div>    
+        </div><!--end form row-->
+
+
+        <div class="form-row statusInputForm">
+          <div class="form-group col-md-3">
+            <label for="esito">Esito  Offerta Inviata</label>
+            <select class="form-control" id="esito" name="esito" >
+                <option value="0">Attesa</option>
+                <option value="1">Ordine</option>
+                <option value="2">Rifiutata</option>
+            </select> 
+          </div> 
+          <div class="form-group col-md-3">
+              <label for="stato">Stato Offerta </label>
+              <select class="form-control" id="stato" name="stato" >
+                  <option value="0">Opportunita</option>
+                  <option value="1">Sviluppo</option>
+                  <option value="2">StandBy</option>
+                  <option value="3">Consegnata</option>
+                  <option value="4">ComessaAperta</option>
+                  <option value="5">Commessa In Esecuzione</option>
+                  <option value="6">Comm Terminata</option>
+                  <option value="7">Fatturata</option>
+                  <option value="8">Archiviata</option>
+              </select>  
+          </div>
+          <div class="form-group col-md-3">
+            <label for="tipologia">Tipo Offerta</label>
+            <select class="form-control" id="tipologia" name="tipologia" placeholder='Seleziona tipo'>
+                <option value="0">Elettrico</option>
+                <option value="1">Meccanico</option>
+                <option value="2">Ele&Mec</option>
+                <option value="3">Servizi</option>
+                <option value="4">Automac Assistenza</option>
+                <option value="5">Automac vendita</option>
+                <option value="6">Attrezzature</option>
+            </select>  
+          </div>   
+          <div class="form-group col-md-3">
+            <label for="categoria">Categoria Offerta</label>
+            <select class="form-control" id="categoria" name="categoria" placeholder='Seleziona categoria'>
+                <option value="0">Privato</option>
+                <option value="1">Pubblico</option>
+                <option value="2">Persona Fisica</option>
+                <option value="4">Privato in economia</option>
+                <option value="2">Persona Fisica in economia</option>
+            </select>  
+          </div>      
+        </div><!--end form row-->
+
+        
+        <div class="form-row">
+          <div class="form-group col-md-12">
+            <label for="path">Link Folder Offerta</label>
+            <input type="text" class="form-control" id="path" placeholder="path">
+          </div>
+        </div><!--end form row-->
+      </form>
+    </div><!-- end container--> 
+
+     <!-- test area -->
+     <div id='output'> 
+      area di output<br />   
+    </div>
+    
+    <!-- jsSection-->
+    
+    <script src="https://code.jquery.com/jquery-3.4.0.js" integrity="sha256-DYZMCC8HTC+QDr5QNaIcfR7VSPtcISykd+6eSmBW5qo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>    
+    
+    <!-- App Front End JS Library
+      mandatory for all vPages
+    -->
+    <?!= include ('feLibrary');?> 
+    <?!= include ('feAppLogic');?> 
+    
+<script>
+console.log('in operationFormPage');
+
+$(document).ready(function(){
+  
+    //init & test
+  /* inserisce la data attuale sui campi date  della form*/
+    //build formDateArray from formDateFields
+  var dateFields=[$("#apertura"), $("#scadenza"), $("#archiviazione") ];//seleziono tutti i campi data della form e li pusho in un array
+  
+    //fill formDateFields with today date (on feLibrary)
+  var inputDate=setInputFieldsCurrentDate(dateFields);//auxiliary function in feLibrary;
+
+  /*eventlistener*/
+  $("#btnConferma").click(function(){
+      //init,  test & acquisizione dati in input (creare una funzione in feApp)
+    alert('hai confermato i dati. Procedo alla creazione del record');
+      //getting form values
+    let cod=$("#cod").val();
+    let nomeBreveCliente=$("#nomeBreveCliente").val();
+    let riferimentoCliente=$("#riferimentoCliente").val();
+    let oggetto=$("#oggetto").val();
+    let importo=$("#importo").val();
+    let note=$("#note").val();
+    let idGame=$("#idGame").val();
+    let idCliente=$("#idCliente").val();
+    let apertura=$("#apertura").val();
+    let scadenza=$("#scadenza").val();
+    let archiviazione=$("#archiviazione").val();
+    let idOperatore= $("#idOperatore").val(); //memo: you must use value= inside option tag!!! 
+    let idRichiedente= $("#idRichiedente").val(); 
+    let esito=$("#esito").val();
+    let stato=$("#stato").val();
+    let tipologia=$("#tipologia").val();
+    let categoria=$("#categoria").val();
+    let path=$("#path").val();      
+   
+    /*filtraggio valori di input*/  
+    /*#genera il valore cod di default (come intero); sarà poi ricostruito in sede 
+      di sola visualizzazione del record  (da migliorare)(evita errori di input)
+      # se importo non è definito lo pone a 0*/
+    cod=0;
+    if(!importo){
+      importo=0;//filtro da migliorare con warning per userß      
+    }
+    if(!idGame){
+      idGame=0;
+    }
+    if(!idCliente){
+      idCliente=0;
+    }
+      //crea un array che contiene tutti i dati (id=null)      
+    let  values=[cod,nomeBreveCliente,riferimentoCliente,oggetto,importo,note,idGame,idCliente,apertura,scadenza,archiviazione,idOperatore,idRichiedente,esito,stato,categoria, tipologia,path];
+    
+      //launching  fe wrapper preprocessing  function (feAppLogic) for easier use of Crud Class
+    console.log('dati della operation da creare: '+values);
+    objCreate(values);//no return (da 0070 COMM)    
+  });
+});
+
+
+$( "#btnBack" ).click(function() {
+  // not used
+  //chiude la pagina corrente (torna alla pagina index)
+  //alert('per chiudere la pagina usa il browser!');
+});  
+
+/* developer notes
+
+*/
+
+</script>
+
+</body>
+</html>

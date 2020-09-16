@@ -48,21 +48,58 @@
 @beCRUD ---- some troubles
 #adatta  pattern per visualizzazione (OOP)***
 
-#visualizza Offerte con datatable (adesso con jdbc poi con ajax)***
+#visualizza Offerte con datatable (adesso con jdbc poi con ajax da WA)***
 
 
-***R01.004 20200830***
-#crea Offerta
-#semplifica CRUD con le estensioni...
+***R01.004 20200830----
+
+#verifica allineamento tabella dv con form input ***
+@@crea Offerta***
+
+    @vOffertaCreatePage ***
+#adatta a COMM la corrispondente pagina di ACQP_PA(vPaCreatePage)--
+ // per adesso dropdown rimangono hard coded (prova con html separato feCollaboratoriDropDown.html 
+ poi passa a ajax )**
+#data in automatico***
+#dropDown lists per operatori***
+#test lancio CRUD***
 
 
+@beCRUD----
+#adatta objCreate(values) feAppLogic ***
+#adatta beAppLogic per uso conCRUD Method***
+
+*beDrive@beAppLogic
+#adatta feAppLogic e beAppLogic per uso con libreria beDrive Manager ***
+#numerazione offerta in automatico***
+#creazione e popolazione folder con i template***
+(inizialmente max 2 template)
+#inizializzazione targetSheet preventivo--- riv----
 
 
+<!-- from here -->
+***R01.004 20200830----
+@vOffertaUpdatePage
+#adatta da acquisti / operations
 
 
 <!-- to do next-->
+@@crea Offerta----
+#verifica campi INT sulla form input---
+--NB al nuovo record viene assegnato il numero progressivo del database (2 rimane fisso; poi sistema YYxxx) 
+    es. Offerta 210023 invece di 210120 (passo da 120 a 10120!!) ##### per adesso si lavora con lo standard ACQ 
+    (possibile generazione di offerte fuori dalla App)
+#semplifica CRUD con le estensioni o comunque dry the code...
 #crea gli archivi per le vecchie offerte con eventuali tabelle apposite per la gestione
 #gestione tabella customerCare su db
 #gestione tabella azioni commerciali su db
 #gestione tabella opportunità commerciali su db
 #lettura tabella offerte con AJAX + script PHP OOP
+#classe ResultSetJdbc versione JDBC e ResultSetPdo versione PDO che si estende con nuove classi  a:
+-getRecordSet
+-updateRecord
+-newRecord
+-deleteRecord
+-dropdown con Ajax e PDO Php + dBase
+output dati da ciascuna classe in Json, array2D, associativeArray, string, (xml!!)
+

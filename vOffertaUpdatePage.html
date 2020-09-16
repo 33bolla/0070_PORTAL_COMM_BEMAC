@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    
+    <!-- bootstrap and JQ_UI decorative library -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href=" https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+   
+   
+    <!-- css in external file -->
+    <?!= include ('vPage-css'); ?>
+    
+    <!-- multipage management: setting url for e.parameter obj -->
+    <?var url = getScriptUrl();?>
+  </head>
+  <body>
+    <!-- header  -->
+    <?!= include ('vHeader'); ?>  
+
+    <h1 class="style1"> OFFERTA  UPDATE ASSISTANT PAGE  </h1> 
+    <div></div>
+    
+    <!-- page control-->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a class="btn btn-primary style2" id='btnBack' href='<?=url?>?page=index' target="_top" role="button">Torna alla pagina principale</a>
+            </div>
+            <div class="col-sm"> 
+                <a class="btn btn-primary style2" id='btnBack' href='<?=url?>?page=vOfferteListPage' target="_top" role="button">Torna alla lista PA</a> 
+            </div>
+            <div class="col-sm">
+                <button type="button" class="btn btn-success" id="btnConferma">Conferma Dati Inseriti</button>
+            </div>
+        </div>
+    </div><!-- end container-->
+    
+    <hr>
+    
+    <!-- table for datatable  -->
+    <div class="container">
+      <table id=targetTable class="display" width="100%"></table>
+    </div><!-- end container--> 
+    
+    <!-- form visualizzazione estesa record  area  (deve diventare un template)-->  
+    <div class="container">
+        <form>      
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="idObj">id Offerta</label>
+                    <input type="text" class="form-control" id="idObj" placeholder="Numero Pa">
+                </div>
+              
+                <div class="form-group col-md-6">
+                        <label for="descrizionePa">Descrizione</label>
+                        <input type="text" class="form-control" id="descrizionePa" placeholder="cliente_destinazione_oggetto">
+                </div>      
+              </div><!--end form row-->
+              
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="noteInternePa">Note Interne</label>
+                  <textarea class="form-control" id="noteInternePa" placeholder="noteInternePa" rows="3"></textarea>
+                </div>
+            
+                <div class="form-group col-md-6">
+                    <label for="noteFornitorePa">Note per fornitore</label>
+                    <textarea class="form-control" id="noteFornitorePa" placeholder="noteFornitorePa" rows="3"></textarea>
+                </div>
+              </div><!--end form row-->
+      
+              <div class="form-row">
+                <!-- attiva lettura da tabella!-->
+                <div class="form-group col-md-2">
+                  <label for="operatore">Operatore</label>
+                  <select id="operatore" name="operatore" placeholder="seleziona operatore">
+                      <option value="2150">Filippo Mazzanti</option>
+                      <option value="2151">Mara Mazzanti</option>
+                      <option value="2140">Manuela Piseddu</option>
+                      <option value="322">Marco Bevilacqua</option>
+                      <option value="360">Maurizio Mazzanti</option>  
+                      <option value="361">Stefano Mazzanti</option>
+                  </select>  
+                </div>    
+                
+                <div class="form-group col-md-2">
+                  <label for="richiedente">Richiedente</label>
+                  <select id="richiedente" name="richiedente" placeholder="seleziona richiedente">
+                      <option value="2150">Filippo Mazzanti</option>
+                      <option value="2151">Mara Mazzanti</option>
+                      <option value="2140">Manuela Piseddu</option>
+                      <option value="322">Marco Bevilacqua</option>
+                      <option value="360">Maurizio Mazzanti</option>  
+                      <option value="361">Stefano Mazzanti</option>
+                      <option value="581">Baluganti.P</option>
+                      <option value="2153">Baroncelli.M</option>  
+                      <option value="2152">Donati.A</option>
+                      <option value="585">Fossi.J</option>
+                      <option value="583">Innocenti.L</option>
+                      <option value="2148">Mazzanti.L</option> 
+                      <option value="337">Romanelli.A</option>
+                      <option value="617">Tempesti.L</option>
+                      <option value="343">Tempesti.M</option>
+                      <option value="582">Uniri.B</option>
+                      
+                      
+                  </select>  
+                </div>    
+      
+                <div class="form-group col-md-2">
+                  <label for="start">Start</label>
+                  <input type="text" class="form-control" id="start" placeholder="yyyy-mm-dd">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="limit">Limit</label>
+                  <input type="text" class="form-control" id="limite" placeholder="yyyy-mm-dd">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="end">end</label>
+                  <input type="text" class="form-control" id="end" placeholder="yyyy-mm-dd">
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="terminata">terminata</label>
+                  <input type="text" class="form-control" id="terminata" placeholder="terminata=1">
+                </div>
+              </div><!--end form row-->
+              <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="fkGame">Cod Game</label>
+                    <input type="text" class="form-control" id="fkGame" placeholder="Codice Game">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="fkOfferta">Cod Offerta</label>
+                  <input type="text" class="form-control" id="fkOfferta" placeholder="Codice Offerta">
+                </div>
+                <div class="form-group col-md-3">
+                  <label for="fkLavorazione">Cod Lavorazione</label>
+                  <input type="text" class="form-control" id="fkLavorazione" placeholder="Codice Lavorazione">
+                </div>
+      
+                <div class="form-group col-md-3">
+                    <label for="statoPa">Stato PA</label>
+                    <select id="statoPa" name="statoPa" placeholder="Seleziona stato Pa">
+                        <option value="0">Richiesta Offerta</option>
+                        <option value="1">Offerta Ricevuta</option>
+                        <option value="2">Ordine Fornitore</option>
+                        <option value="3">Ddt Fornitore Processo Completato</option>
+                        <option value="3">Fornitura non eseguita Processo Completato</option>
+                    </select>  
+                </div>    
+              </div><!--end form row-->
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="path">Link PA</label>
+                  <input type="text" class="form-control" id="path" placeholder="path">
+                </div>
+              </div><!--end form row-->
+        </form>
+    </div><!-- end container--> 
+
+    <!-- buttons automazione e  visualizzazione folder & files del Pa  -->  
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary" id="btnApriFolder">Apri cartella Processo</button>
+            </div>
+            <div class="col-md-4"> 
+                <button type="button" class="btn btn-primary" id="btnApriLogProcesso">Apri logControlloProcesso</button>
+            </div>
+            <div class="col-md-4">
+                <button type="button" class="btn btn-primary" id="btnApriPaSheet">Apri gSheet PA</button>
+            </div>
+        </div> <!-- end row -->
+        <hr>
+        <div class="row">
+          <div class="col-md-4">
+              <button type="button" class="btn btn-primary" id="btnShowRo">Vedi RO</button><br>
+              <button type="button" class="btn btn-primary" id="btnSendRo">Invia RO</button>
+          </div>
+          <div class="col-md-4"> 
+              <button type="button" class="btn btn-primary" id="btnShowOr">Vedi OR</button><br>
+              <button type="button" class="btn btn-primary" id="btnSendOr">Invia OR</button>
+          </div>
+          <div class="col-md-4">
+              <button type="button" class="btn btn-primary" id="btnShowDdt">VediDdt</button><br>
+              <button type="button" class="btn btn-primary" id="btnSendDdt">Non Attivo</button>
+          </div>
+      </div> <!-- end row -->
+
+    </div><!-- end container--> 
+
+    <!--  UI basic Interface -->
+    <!-- Modal  definition (fully parametrized) -->
+    <?!= include ('vModalTemplates'); ?>
+    <div> <hr> </div>
+    
+    <!-- test area -->
+    <div id='output'> 
+      area di output<br />   
+    </div>
+    
+    <!-- jsSection-->
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>    
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+ 
+    
+
+    <!--  Front End JS App +JS Library-->
+    <?!= include ('feLibrary');?> 
+    <?!= include ('feAppLogic');?> 
+    <?!= include ('feModalManager');?> 
+
+<script>
+//init & test
+console.log('in Assistant Update PA Page');
+//setting folder  parameters 
+let paFolderId='1ZpkHOwofiO9MeaDK6TmSlOKr6V40ZDlG';//hard coded : cartella PA
+
+//event listener (on saving data changes on form)
+$("#btnConferma").click(function(){
+    //init,  test & acquisizione dati in input
+    //alert('hai confermato i dati. Procedo alla modifica del folder sul database');
+    let id=sessionStorage.getItem('idPa');//non viene storata con ready function iniziale
+    // let id=$('#id').val();
+    let codPa=$("#codPa").val();
+    let descrizionePa=$("#descrizionePa").val();
+    let noteInternePa=$("#noteInternePa").val();
+    let noteFornitorePa=$("#noteFornitorePa").val();
+    let operatore=$("#operatore").val();
+    let richiedente=$("#richiedente").val();
+    let start=$("#start").val();
+    let limite=$("#limite").val();
+    let end=$("#end").val();
+    let terminata=$("#terminata").val();
+    let fkGame=$("#fkGame").val();
+    let fkOfferta=$("#fkOfferta").val();
+    let fkLavorazione=$("#fkLavorazione").val();
+    let statoPa=$("#statoPa").val();
+    let path=$("#path").val();
+    
+    //setting array describing record
+    let paValues=[id, codPa, descrizionePa,noteInternePa,noteFornitorePa,operatore,richiedente,start,limite,end, terminata, fkGame,fkOfferta,fkLavorazione, statoPa,path];
+    console.log('valori form aggiornati'+ paValues);
+    
+    //call server side beAppLogic function
+    //chiama la funzione custom in BE che chiama CRUD 
+    google.script.run.withSuccessHandler(onSuccess)
+        .gsUpdateRecord('SB_MMazza', 'ACQ_PA', paValues);
+    
+        //callback function
+        function onSuccess(dataSet) {      
+            //test & init          
+            console.log('questo è il valore ritornato dal BE:  '+dataSet); 
+            alert( 'tutto OK aggiornamento eseguito con successo!');
+        }
+});
+
+$("#btnApriFolder").click(function(){
+    //init,  test & acquisizione dati in input
+    let codicePa=sessionStorage.getItem('codicePa');   
+    codicePa='00'+codicePa;//da rivedere
+    let subFolderType=0;//no subFolder
+    let folderValues= openPaFolder(codicePa, paFolderId, subFolderType);//open the PA folder (feAppLogic)
+});
+
+$("#btnApriLogProcesso").click(function(){
+    //init,  test & acquisizione dati in input
+    console.log('in btnApriLogProcesso listener');
+    let codicePa=sessionStorage.getItem('codicePa');
+    console.log('codicePa letto ='+codicePa);
+    console.log('id folder PA hard coded  ='+paFolderId);
+    codicePa='00'+codicePa;//da rivedere
+
+    //select file
+    let fileName='controlloProcesso';
+    let folderValues= openDocument(codicePa, paFolderId, fileName);//open the sheet (feAppLogic)
+    console.log(folderValues);
+    console.log('out of event listener logProcesso');
+});
+
+$("#btnApriPaSheet").click(function(){
+    //init,  test & acquisizione dati in input
+    console.log('in btnApriListaDocumentilistener');
+    codicePa=sessionStorage.getItem('codicePa');
+    console.log('codicePa letto ='+codicePa);
+    console.log('id folder Pa hard coded  ='+paFolderId);
+    codicePa='00'+codicePa;//da rivedere
+
+    //select file
+    let fileName='PA'+codicePa;
+    let folderValues= openDocument(codicePa, paFolderId, fileName);//open the sheet (easy version no change on database)
+    console.log(folderValues);
+    console.log('out of event listener lista docs');
+});
+
+//document management event listener
+$("#btnShowRo").click(function(){
+    //init,  test & acquisizione dati in input
+    alert ('adesso ti mostro RO subfolder!');
+    let codicePa=sessionStorage.getItem('codicePa');   
+    codicePa='00'+codicePa;//da rivedere
+    let subFolderType='RO';
+    let folderValues= openPaFolder(codicePa, paFolderId, subFolderType);//open the PA folder (feAppLogic)
+});
+$("#btnSendRo").click(function(){
+    /*event listener per attivazione modal e automazion*/
+    
+    //init,  test & acquisizione dati in input
+    alert ('adesso avvio  RO !');
+    let codicePa=sessionStorage.getItem('codicePa');   
+    codicePa='00'+codicePa;//da rivedere
+    let subFolderType='RO';
+    showDataModal(); //richiama la modal template 
+    //let folderValues= openPaFolder(codicePa, paFolderId, subFolderType);//open the PA folder (feAppLogic)
+});
+
+
+
+
+
+$("#btnShowOr").click(function(){
+    //init,  test & acquisizione dati in input
+    alert ('adesso ti mostro RO subfolder!');
+    let codicePa=sessionStorage.getItem('codicePa');   
+    codicePa='00'+codicePa;//da rivedere
+    let subFolderType='OR';
+    let folderValues= openPaFolder(codicePa, paFolderId, subFolderType);//open the PA folder (feAppLogic)
+});
+$("#btnShowDdt").click(function(){
+    //init,  test & acquisizione dati in input
+    alert ('adesso ti mostro DDT subfolder!');
+    let codicePa=sessionStorage.getItem('codicePa');   
+    codicePa='00'+codicePa;//da rivedere
+    let subFolderType='Ddt';
+    let folderValues= openPaFolder(codicePa, paFolderId, subFolderType);//open the PA folder (feAppLogic)
+});
+
+
+
+//page initial rendering
+$(document).ready(function(){
+   //lancia la qry di selezione per ottenere i dati del record da JDBC, attraverso il modulo beAppLogic 
+   //beAppLogic  lancia la query utilizzando  la classe CRUD
+   
+   //init & test
+   //il valore dell'id del record richiesto è memorizzato in locale con session storage
+   console.log('in ready function');
+   let dbase='SB_MMazza';
+   let idPa=sessionStorage.getItem('idPa');
+   console.log('idPa letto ='+idPa);
+   
+   // error management
+   if (!idPa){
+       alert ('idPa non trovato');
+       idPa=2;
+   }
+   console.log(idPa);
+
+   //query builder
+   qry='SELECT * FROM SB_MMazza.ACQ_PA where Id='+idPa+';';
+
+   //call server side beAppLogic function 
+   console.log('calling befunction gsArray');
+   google.script.run.withSuccessHandler(onSuccess)
+        .gsArrayReadTable(dbase, qry); 
+            
+        //callback function
+        function onSuccess(dataSet) {      
+            //test & init          
+            console.log('questo è il valore ritornato dal BE:  '+dataSet); 
+            //alert( 'tutto OK!');
+
+            //datables library in order to showing data
+            $('#targetTable').DataTable( {
+                data: dataSet,
+                columns: [
+                { title: "id" },
+                    { title: "cod" },
+                    { title: "descrizione" },
+                    { title: "note_interne" },
+                    { title: "note_fornitore" },
+                    { title: "fkOperatore" },
+                    { title: "fkRichiedente" },
+                    { title: "start" },
+                    { title: "limite" },
+                    { title: "end" },
+                    { title: "terminata" },
+                    { title: "fkGame" },
+                    { title: "fkOfferta" },
+                    { title: "fkLavorazione" },
+                    { title: "fkStatoPa" },
+                    { title: "path" }
+                ]
+            } );
+            
+            //form Filling with record data
+            $('#id').val(dataSet[0][0]);
+            $('#codPa').val(dataSet[0][1]);
+            $('#descrizionePa').val(dataSet[0][2]);
+            $('#note_internePa').val(dataSet[0][3]);
+            $('#note_FornitorePa').val(dataSet[0][4]);
+            $('#operatore').val(dataSet[0][5]);
+            $('#richiedente').val(dataSet[0][6]);
+            $('#start').val(dataSet[0][7]);
+            $('#limite').val(dataSet[0][8]);
+            $('#end').val(dataSet[0][9]);
+            $('#terminata').val(dataSet[0][10]);
+            $('#fkGame').val(dataSet[0][11]);
+            $('#fkOfferta').val(dataSet[0][12]);
+            $('#fkLavorazione').val(dataSet[0][13]);
+            $('#statoPa').val(dataSet[0][14]);
+            $('#path').val(dataSet[0][15]);
+
+
+            //-----setting selected record idPa on session storage as 'codicePa'
+            sessionStorage.setItem('codicePa', dataSet[0][1]); 
+        
+        } 
+});
+
+
+
+
+/*developer notes:
+
+toDo
+#inserire librerie x datatable***
+#crea tabella target ***
+#crea funzione beAppLogic per script JDBC per popolare la tabella ****
+
+Done
+
+
+
+*/
+</script>
+</body>
+</html>
+
+
